@@ -10,15 +10,6 @@ struct Vector2f
 
 struct Sphere
 {
-    Sphere() : position(Vector2f{ 0,0 }), oldPosition(Vector2f{ 0,0 } ), velocity(Vector2f{ 0,0 }), acceleration(Vector2f{ 0,0 }),
-        radius(25), MASS(1), colorSphere(sf::Color(100, 100, 100)), colorTrack(sf::Color(0, 0, 0)) {};
-    /*
-    Sphere(Vector2f position, Vector2f oldPosition, Vector2f velocity, Vector2f acceleration, int radius, const float MASS, sf::Color colorSphere, sf::Color colorTrack) : 
-        position(position), oldPosition(oldPosition), velocity(velocity), acceleration(acceleration), radius(radius), MASS(MASS), colorSphere(colorSphere), colorTrack(colorTrack) {};
-    Sphere(const Sphere* sphere) : position(sphere->position), oldPosition(sphere->oldPosition), velocity(sphere->velocity), acceleration(sphere->acceleration), 
-        radius(sphere->radius), MASS(sphere->MASS), colorSphere(sphere->colorSphere), colorTrack(sphere->colorTrack) {};
-    */
-
     Vector2f position;
     Vector2f oldPosition;
     Vector2f velocity;
@@ -154,7 +145,7 @@ void changeSpeedSphereOnCollision(Sphere* sphere1,
     }
 }
 
-/*
+
 void drawTrack(sf::RenderWindow* window, Sphere* sphere, int numberOfCiclesInDrawTrack)
 {
     sf::Color trackColor = sphere->colorTrack;
@@ -179,7 +170,6 @@ void drawTrack(sf::RenderWindow* window, Sphere* sphere, int numberOfCiclesInDra
 
     drawSphere(window, &sphereOld, numberOfCiclesInDrawTrack, true);
 }
-*/
 
 void controlSphere(Sphere* sphere, const float controllability, const float coefficientSlowdown)
 {
