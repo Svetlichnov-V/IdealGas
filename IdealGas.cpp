@@ -18,7 +18,7 @@ int main()
     sf::Color fillColor = sf::Color(redFill, greenFill, blueFill);
     sf::Color lineColor = sf::Color(redFill, greenFill, blueFill);
 
-    int numberOfCicles = 50;
+    int numberOfCicles = 25;
     int numberOfCiclesInDrawTrack = 10;
 
     int radius = 25;
@@ -27,15 +27,15 @@ int main()
     sf::Color colorSphere = sf::Color(0, 0, 255);
     sf::Color colorTrackSphere = fillColor;
 
-    const int numberOfParticles = 100;
+    const int numberOfParticles = 200;
     Sphere particles[numberOfParticles];
 
-    srand(1000);
+    srand(500);
 
     for (int i = 0; i < numberOfParticles; ++i)
     {
         Vector2f position{ rand() % X_MAX, rand() % Y_MAX };
-        Vector2f velocity{ rand() % 100, rand() % 100 };
+        Vector2f velocity{ rand() % 200, rand() % 200 };
         Sphere particle{ position,     position,     velocity,     Vector2f {0, 0}, radius, SPHERE_MASS, colorSphere, colorTrackSphere };
         particles[i] = particle;
     }
@@ -59,7 +59,7 @@ int main()
             for (int j = i + 1; j < numberOfParticles; ++j)
             {
                 if (isCollidedTwoSpheres(&particles[i], &particles[j]))
-                    changeSpeedSphereOnCollision(&particles[i], &particles[j]);
+                    resolutionSphereOnCollision(&particles[i], &particles[j]);
             }
         }
         for (int i = 0; i < numberOfParticles; ++i)
