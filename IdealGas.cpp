@@ -18,16 +18,15 @@ int main()
     sf::Color fillColor = sf::Color(redFill, greenFill, blueFill);
     sf::Color lineColor = sf::Color(redFill, greenFill, blueFill);
 
-    int numberOfCicles = 25;
-    int numberOfCiclesInDrawTrack = 10;
+    int numberOfCicles = 10;
 
-    int radius = 25;
+    int radius = 10;
     float SPHERE_MASS = 1;
 
     sf::Color colorSphere = sf::Color(0, 0, 255);
     sf::Color colorTrackSphere = fillColor;
 
-    const int numberOfParticles = 200;
+    const int numberOfParticles = 1000;
     Sphere particles[numberOfParticles];
 
     srand(500);

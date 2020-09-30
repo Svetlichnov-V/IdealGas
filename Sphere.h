@@ -43,7 +43,7 @@ void drawSphere(sf::RenderWindow* window, Sphere* sphere, int numberOfCicles, bo
     int x0 = sphere->position.x;
     int y0 = sphere->position.y;
 
-    sf::CircleShape circle = sf::CircleShape(sphereRadius);
+    sf::CircleShape circle(sphereRadius, 8);
 
     for (int i = 0; i < numberOfCicles; i++)
     {
@@ -60,6 +60,7 @@ void drawSphere(sf::RenderWindow* window, Sphere* sphere, int numberOfCicles, bo
 
         sf::Color currentCircleColor = sf::Color(currentCircleRed, currentCircleGreen, currentCircleBlue);
 
+        //sf::CircleShape circle(currentCircleRadius, (15 * (numberOfCicles - i) / numberOfCicles) + 5);
         circle.setRadius(currentCircleRadius);
         circle.setFillColor(currentCircleColor);
         circle.setOutlineColor(currentCircleColor);
