@@ -23,12 +23,9 @@ struct Sphere
 
 void drawSphere(sf::RenderWindow* window, Sphere* sphere, int numberOfCicles, bool constColour = false)
 {
-    if (window == 0)
-        assert(false);
-    if (sphere == 0)
-        assert(false);
-    if (numberOfCicles == 0)
-        assert(false);
+    assert(window != 0);
+    assert(sphere != 0);
+    assert(numberOfCicles != 0);
 
     int red = sphere->colorSphere.r;
     int green = sphere->colorSphere.g;
@@ -43,7 +40,7 @@ void drawSphere(sf::RenderWindow* window, Sphere* sphere, int numberOfCicles, bo
     int x0 = sphere->position.x;
     int y0 = sphere->position.y;
 
-    sf::CircleShape circle(sphereRadius, 8);
+    sf::CircleShape circle(sphereRadius, 7);
 
     for (int i = 0; i < numberOfCicles; i++)
     {
@@ -71,8 +68,7 @@ void drawSphere(sf::RenderWindow* window, Sphere* sphere, int numberOfCicles, bo
 
 void moveSphere(Sphere* sphere, const float DT)
 {
-    if (sphere == 0)
-        assert(false);
+    assert(sphere != 0);
 
     sphere->position.x += sphere->velocity.x * DT + 0.5 * sphere->acceleration.x * DT * DT;
     sphere->position.y += sphere->velocity.y * DT + 0.5 * sphere->acceleration.y * DT * DT;
@@ -83,37 +79,34 @@ void moveSphere(Sphere* sphere, const float DT)
 
 void collisionSphere(Sphere* sphere, const int X_MAX, const int Y_MAX)
 {
-    if (sphere == 0)
-        assert(false);
+    assert(sphere != 0);
 
-    if ((sphere->position.x > X_MAX - (sphere->radius) && (sphere->velocity.x) > 0))
+    if (sphere->position.x > X_MAX - (sphere->radius)      && (sphere->velocity.x) > 0)
     {
         sphere->velocity.x = -sphere->velocity.x;
-        sphere->position.x += 2 * (X_MAX - sphere->position.x - sphere->radius);
+        sphere->position.x -= 2 * (X_MAX - sphere->position.x - sphere->radius);
     }
-    if (sphere->position.x < (sphere->radius) && (sphere->velocity.x) < 0)
+    if (sphere->position.x < (sphere->radius)      && (sphere->velocity.x) < 0)
     {
         sphere->velocity.x = -sphere->velocity.x;
-        sphere->position.x += 2 * (sphere->position.x - sphere->radius);
+        sphere->position.x -= 2 * (sphere->position.x - sphere->radius);
     }
-    if ((sphere->position.y > Y_MAX - (sphere->radius) && (sphere->velocity.y) > 0))
+    if ((sphere->position.y > Y_MAX - (sphere->radius))  && (sphere->velocity.y) > 0)
     {
         sphere->velocity.y = -sphere->velocity.y;
-        sphere->position.y += 2 * (Y_MAX - sphere->position.y - sphere->radius);
+        sphere->position.y -= 2 * (Y_MAX - sphere->position.y - sphere->radius);
     }
-    if (sphere->position.y < (sphere->radius) && (sphere->velocity.y) < 0)
+    if ((sphere->position.y < (sphere->radius)) && sphere->velocity.y < 0)
     {
         sphere->velocity.y = -sphere->velocity.y;
-        sphere->position.y += 2 * (sphere->position.y - sphere->radius);
+        sphere->position.y -= 2 * (sphere->position.y - sphere->radius);
     }
 }
 
 bool isCollidedTwoSpheres(Sphere* sphere1, Sphere* sphere2)
 {
-    if (sphere1 == 0)
-        assert(false);
-    if (sphere2 == 0)
-        assert(false);
+    assert(sphere1 != 0);
+    assert(sphere2 != 0);
 
     int commonRadius = (sphere1->radius) + (sphere2->radius);
     int commonRadiusSquared = commonRadius * commonRadius;
@@ -123,9 +116,7 @@ bool isCollidedTwoSpheres(Sphere* sphere1, Sphere* sphere2)
 
     float distanceSquared = dx * dx + dy * dy;
 
-    if (distanceSquared < commonRadiusSquared)
-        return true;
-    return false;
+    return (distanceSquared < commonRadiusSquared);
 }
 
 float projectionVector(float xVector, float yVector, float xAxis, float yAxis)
@@ -133,8 +124,7 @@ float projectionVector(float xVector, float yVector, float xAxis, float yAxis)
     float scalarComposition = xVector * xAxis + yVector * yAxis;
     float moduleAxis = pow(xAxis * xAxis + yAxis * yAxis, 0.5);
 
-    if (moduleAxis == 0)
-        assert(false);
+    assert(moduleAxis != 0);
 
     float pV = scalarComposition / moduleAxis;
     return pV;
@@ -142,8 +132,7 @@ float projectionVector(float xVector, float yVector, float xAxis, float yAxis)
 
 float reducedMass(const float m1, const float m2)
 {
-    if (m1 == 0 || m2 == 0)
-        assert(false);
+    assert(m1 != 0 && m2 != 0);
 
     float rm = (m1 * m2) / (m1 + m2);
     return rm;
@@ -156,12 +145,9 @@ float moduleVector(float x, float y)
 
 void resolutionSphereOnCollision(Sphere* sphere1, Sphere* sphere2)
 {
-    if (sphere1 == 0)
-        assert(false);
-    if (sphere2 == 0)
-        assert(false);
-    if (sphere1->MASS == 0 || sphere2->MASS == 0)
-        assert(false);
+    assert(sphere1 != 0);
+    assert(sphere2 != 0);
+    assert(sphere1->MASS != 0 && sphere2->MASS != 0);
 
     float xAxis = sphere1->position.x - sphere2->position.x;
     float yAxis = sphere1->position.y - sphere2->position.y;

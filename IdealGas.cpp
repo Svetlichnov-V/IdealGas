@@ -10,26 +10,30 @@ int main()
     const int X_MAX = 1960;
     const int Y_MAX = 1080;
 
-    const float DT = 0.1;
+    float dt = 0.1;
 
     sf::Uint8 redFill = 10;
     sf::Uint8 greenFill = 10;
-    sf::Uint8 blueFill = 0;
+    sf::Uint8 blueFill = 10;
     sf::Color fillColor = sf::Color(redFill, greenFill, blueFill);
     sf::Color lineColor = sf::Color(redFill, greenFill, blueFill);
 
-    int numberOfCicles = 10;
+    int numberOfCicles = 1;
 
     int radius = 10;
     float SPHERE_MASS = 1;
 
-    sf::Color colorSphere = sf::Color(0, 0, 255);
+    sf::Color colorSphere = sf::Color(0, 0, 0);
     sf::Color colorTrackSphere = fillColor;
 
-    const int numberOfParticles = 1000;
+    const int numberOfParticles = 800;
     Sphere particles[numberOfParticles];
 
-    srand(500);
+    sf::Clock clock;
+    int time = clock.getElapsedTime().asMilliseconds() + 400;
+    srand(time);
+    std::cout << time;
+    std::cout << "/n";
 
     for (int i = 0; i < numberOfParticles; ++i)
     {
@@ -39,16 +43,21 @@ int main()
         particles[i] = particle;
     }
 
-    float controllability = 20;
-
-    float coefficientSlowdown = 0.0;
-
     sf::RenderWindow window(sf::VideoMode(X_MAX, Y_MAX), "Main window");
     window.clear(fillColor);
     window.display();
 
+    float time1 = clock.getElapsedTime().asSeconds();
+    float time2 = clock.getElapsedTime().asSeconds();
+
     while (window.isOpen())
     {
+        time1 = clock.getElapsedTime().asSeconds();
+        dt = time1 - time2;
+        std::cout << 1.0 / (time1 - time2);
+        time2 = time1;
+        std::cout << "/n";
+
         for (int i = 0; i < numberOfParticles; ++i)
         {
             collisionSphere(&particles[i], X_MAX, Y_MAX);
@@ -63,7 +72,7 @@ int main()
         }
         for (int i = 0; i < numberOfParticles; ++i)
         {
-            moveSphere(&particles[i], DT);
+            moveSphere(&particles[i], dt);
         }
 
         sf::Event event;
@@ -76,7 +85,7 @@ int main()
         window.clear(fillColor);
         for (int i = 0; i < numberOfParticles; ++i)
         {
-            drawSphere(&window, &particles[i], numberOfCicles);
+            drawSphere(&window, &particles[i], numberOfCicles, true);
         }
         window.display();
     }
