@@ -177,6 +177,7 @@ void resolutionSphereOnCollision(Sphere* sphere1, Sphere* sphere2)
     if (dt < 0)
         dt = -dt;
 
+
     std::cout << projectionVectorOnSpeedSphere1 - projectionVectorOnSpeedSphere2;
     std::cout << dr;
     std::cout << dt;
