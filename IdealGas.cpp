@@ -5,6 +5,7 @@
 #include <math.h>
 #include "sphere.h"
 
+
 int main()
 {
     const int X_MAX = 1960;
